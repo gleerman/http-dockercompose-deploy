@@ -2,7 +2,7 @@ version: '3'
 
 services:
     deployer:
-        build: .
+        image: gleerman/http-dockercompose-deploy:latest
         ports:
             - '12045:5000'
         volumes:
