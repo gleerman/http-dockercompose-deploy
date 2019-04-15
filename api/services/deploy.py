@@ -31,16 +31,15 @@ class DeployService:
         
     def getDownCommand(self):
         cmd = self.getBaseCommand() + " down"
-        print(cmd, file=sys.stdout)
         return cmd
         
     def getUpCommand(self):
         cmd = self.getBaseCommand() + " up -d "+ self.services
-        print(cmd, file=sys.stdout)
         return cmd
         
     def runCommand(self, cmd):
-        print("execution replacement")
+        print("RUNNING COMMAND:", file=sys.stdout)
+        print(cmd, file=sys.stdout)
         proc = subprocess.run([cmd], stdout=sys.stdout, stderr=sys.stderr, shell=True)
         
     def performDeploy(self):
