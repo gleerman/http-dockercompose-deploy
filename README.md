@@ -13,7 +13,7 @@ The token is available in the logs. Perform a HTTP POST request to  `serverdomai
 
 ## Security
 Note that this setup is not entirely secure by default:
-* The server is prune to (D)DOS attacks 
+* The server is prone to (D)DOS attacks 
 * The token is sent plain text over HTTP
 * The response headers are not secure
 
