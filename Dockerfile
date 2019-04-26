@@ -6,7 +6,6 @@ COPY --from=docker-compose /usr/local/bin/docker-compose /usr/local/bin/docker-c
 COPY --from=docker /usr/local/bin/docker /usr/local/bin/docker
 
 RUN pip install "Flask==1.0.2" \
- && pip install "docker==3.7.2" \
  && mkdir /srv/api/
 
 COPY api /srv/api/
