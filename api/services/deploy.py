@@ -35,6 +35,10 @@ class DeployService:
     def getBaseCommand(self):
         return "docker-compose -f \""+DOCKER_COMPOSE_PATH+"\""
         
+    def getPullCommand(self):
+        cmd = self.getBaseCommand() + " pull "+ self.services
+        return cmd
+        
     def getDownCommand(self):
         cmd = self.getBaseCommand() + " down"
         return cmd
@@ -50,6 +54,7 @@ class DeployService:
         
     def performDeploy(self):
         print("----- DEPLOYING -----", file=sys.stdout)
+        self.runCommand(self.getPullCommand())
         self.runCommand(self.getDownCommand())
         self.runCommand(self.getUpCommand())
         sys.stdout.flush()

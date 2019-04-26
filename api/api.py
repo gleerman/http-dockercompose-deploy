@@ -56,4 +56,6 @@ if __name__ == '__main__':
         
     print("-----------------------------", file=sys.stdout)
     
+    deployService.performDeploy()
+    
     app.run(host='0.0.0.0')
