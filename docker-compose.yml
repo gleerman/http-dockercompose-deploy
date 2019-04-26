@@ -1,4 +1,4 @@
-version: '3'
+version: "3.6"
 
 services:
     deployer:
@@ -9,5 +9,19 @@ services:
             - ./token:/srv/token
             - ./deployment:/srv/deployment
             - /var/run/docker.sock:/var/run/docker.sock
+            -  ./registry_credentials.json:/srv/registry_credentials.json
+        environment:
+            - DOCKER_COMPOSE_SERVICES=hello-world
+
+    deployer-dev:
+        build: 
+            context: .
+        ports:
+            - '12045:5000'
+        volumes:
+            - ./token:/srv/token
+            - ./deployment:/srv/deployment
+            - /var/run/docker.sock:/var/run/docker.sock
+            -  ./registry_credentials.json:/srv/registry_credentials.json
         environment:
             - DOCKER_COMPOSE_SERVICES=hello-world

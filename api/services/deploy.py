@@ -3,14 +3,20 @@ import sys
 import random
 import string
 import subprocess
+import docker
+
 
 DOCKER_COMPOSE_PATH = "/srv/deployment/docker-compose.yml"
 
 class DeployService:
 
     def __init__(self):
+        self.docker_client = docker.from_env()
         self.fetchDockerComposeServices()
         self.checkDockerComposeFile()
+        
+    def loginToRegistry(self, creds):
+        self.docker_client.login(registry = creds['domain'], username = creds['user'], password = creds['password'])
         
     def fetchDockerComposeServices(self):
         self.services = os.environ['DOCKER_COMPOSE_SERVICES']

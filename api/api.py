@@ -4,6 +4,7 @@ import sys
 
 from services.token import TokenService
 from services.deploy import DeployService
+from services.secret import SecretService
 
 app = Flask(__name__)
 
@@ -44,7 +45,15 @@ def deploy():
 #-------------------  Initialization of the services and endpoint --------------
 if __name__ == '__main__':
     
+    
+    print("-----------------------------", file=sys.stdout)
+    secretService = SecretService()
     tokenService = TokenService()
     deployService = DeployService()
+    
+    if secretService.loginEnabled:
+        deployService.loginToRegistry(secretService.secrets)
+        
+    print("-----------------------------", file=sys.stdout)
     
     app.run(host='0.0.0.0')

@@ -11,10 +11,7 @@ class TokenService:
 
     def __init__(self):
         token = self.initializeToken()
-        print("-----------------------------", file=sys.stdout)
-        print("Started with token: ", self.token, file=sys.stdout)
-        print("-----------------------------", file=sys.stdout)
-        
+        print("Token: ", self.token, file=sys.stdout)
         
         
     def initializeToken(self):
