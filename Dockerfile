@@ -10,6 +10,7 @@ RUN apk add docker \
     && rm -r /root/.cache \
     && pip3 install "Flask==1.0.2" \
     && pip3 install 'docker-compose==1.20.1' \
+    && pip3 install 'boto3==1.12.33' \
     && mkdir /srv/api/
 
 COPY api /srv/api/

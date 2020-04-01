@@ -1,6 +1,5 @@
-version: '3'
+version: "3"
 
 services:
-    hello-world:
-        image: hello-world
-            
+  hello-world:
+    image: hello-world
