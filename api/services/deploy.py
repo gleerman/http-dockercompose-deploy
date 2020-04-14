@@ -50,9 +50,12 @@ class DeployService:
         proc = subprocess.run([cmd], stdout=sys.stdout, stderr=sys.stderr, shell=True)
         
     def loginToRegistry(self):
-        print("logging in to registry", file=sys.stdout)
-        cmd = "docker login " + self.secrets['domain'] + " -u " + self.secrets['user'] + " -p " + self.secrets['password']
-        self.runCommand(cmd, printCmd = False)
+        if self.secrets and 'domain' in self.secrets and 'user' in self.secrets and 'password' in self.secrets:
+            print("logging in to registry", file=sys.stdout)
+            cmd = "docker login " + self.secrets['domain'] + " -u " + self.secrets['user'] + " -p " + self.secrets['password']
+            self.runCommand(cmd, printCmd = False)
+        else: 
+            print("not logging in to registry due to incomplete secret data", file=sys.stdout)
         
     def setSecrets(self, secrets):
         print("enabling login", file=sys.stdout)
