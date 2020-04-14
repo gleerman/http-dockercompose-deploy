@@ -37,9 +37,10 @@ class SecretService:
             
     def authenticate_registry(self, credentials):
         self.secrets = credentials
-        if self.secrets and self.secrets[KEY_REGISTRY_DOMAIN] and self.secrets[KEY_REGISTRY_USER] and self.secrets[KEY_REGISTRY_PASSWORD]:
+        if self.secrets and KEY_REGISTRY_DOMAIN in self.secrets and KEY_REGISTRY_USER in self.secrets and KEY_REGISTRY_PASSWORD in self.secrets:
             print("Secret for Docker registry login loaded successfully", file=sys.stdout)
         else :
+            self.secrets = None
             print("Secret for Docker registry login incomplete", file=sys.stdout)
         
     
@@ -71,5 +72,6 @@ class SecretService:
             }
             print("Secret for AWS ECR registry login loaded successfully", file=sys.stdout)
         else :
+            self.secrets = None
             print("Secret for AWS ECR registry login incomplete", file=sys.stdout)
         
