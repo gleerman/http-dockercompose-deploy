@@ -12,6 +12,7 @@ class DeployService:
     def __init__(self):
         self.fetchDockerComposeServices()
         self.checkDockerComposeFile()
+        self.loginEnabled = False
         
     def fetchDockerComposeServices(self):
         self.services = os.environ['DOCKER_COMPOSE_SERVICES']
@@ -48,12 +49,21 @@ class DeployService:
             print(cmd, file=sys.stdout)
         proc = subprocess.run([cmd], stdout=sys.stdout, stderr=sys.stderr, shell=True)
         
-    def loginToRegistry(self, creds):
-        cmd = "docker login " + creds['domain'] + " -u " + creds['user'] + " -p " + creds['password']
+    def loginToRegistry(self):
+        print("logging in to registry", file=sys.stdout)
+        cmd = "docker login " + self.secrets['domain'] + " -u " + self.secrets['user'] + " -p " + self.secrets['password']
         self.runCommand(cmd, printCmd = False)
+        
+    def setSecrets(self, secrets):
+        print("enabling login", file=sys.stdout)
+        self.loginEnabled = secrets is not None
+        self.secrets = secrets
         
     def performDeploy(self):
         print("----- DEPLOYING -----", file=sys.stdout)
+        if self.loginEnabled:
+            self.loginToRegistry()
+            
         self.runCommand(self.getDownCommand())
         self.runCommand(self.getPullCommand())
         self.runCommand(self.getUpCommand())

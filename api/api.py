@@ -51,8 +51,7 @@ if __name__ == '__main__':
     tokenService = TokenService()
     deployService = DeployService()
     
-    if secretService.loginEnabled:
-        deployService.loginToRegistry(secretService.secrets)
+    deployService.setSecrets(secretService.secrets)
         
     print("-----------------------------", file=sys.stdout)
     
