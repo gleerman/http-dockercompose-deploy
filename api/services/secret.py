@@ -20,7 +20,6 @@ class SecretService:
         self.loadSecrets(SECRETS_FILE)
     
     def loadSecrets(self, filename):
-        self.loginEnabled = False
         try:
             with open(filename, 'r') as fin:
                 txt = fin.read()
@@ -39,7 +38,6 @@ class SecretService:
     def authenticate_registry(self, credentials):
         self.secrets = credentials
         if self.secrets and self.secrets[KEY_REGISTRY_DOMAIN] and self.secrets[KEY_REGISTRY_USER] and self.secrets[KEY_REGISTRY_PASSWORD]:
-            self.loginEnabled = True
             print("Secret for Docker registry login loaded successfully", file=sys.stdout)
         else :
             print("Secret for Docker registry login incomplete", file=sys.stdout)
@@ -71,7 +69,6 @@ class SecretService:
                 "password": password,
                 "domain": domain
             }
-            self.loginEnabled = True
             print("Secret for AWS ECR registry login loaded successfully", file=sys.stdout)
         else :
             print("Secret for AWS ECR registry login incomplete", file=sys.stdout)
